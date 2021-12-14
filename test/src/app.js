@@ -30,8 +30,7 @@ export default class App extends React.Component {
             },
             iFrameStyle: {
 
-            },
-            iFrameClassName: 'ifieldiframe'
+            }
         };
         const cvvoptions = {
             placeholder: 'CVV',
@@ -43,9 +42,8 @@ export default class App extends React.Component {
 
             },
             iFrameStyle: {
-                
-            },
-            iFrameClassName: 'ifieldiframe'
+
+            }
         };
         this.state = {
             account,
@@ -68,8 +66,7 @@ export default class App extends React.Component {
                     onUpdate={this.onUpdate}
                     onSubmit={this.onSubmit}
                     onToken={this.onToken}
-                    onError={this.onError}
-                    src="https://cdn.cardknox.com/ifields/2.5.1905.0801/ifield.htm" />
+                    onError={this.onError} />
                 <IField
                     type={CVV_TYPE}
                     account={this.state.account}
@@ -80,8 +77,9 @@ export default class App extends React.Component {
                     onUpdate={this.onUpdate}
                     onSubmit={this.onSubmit}
                     onToken={this.onToken}
-                    onError={this.onError}
-                    src="https://cdn.cardknox.com/ifields/2.5.1905.0801/ifield.htm" />
+                    ref={this.cvvRef}
+                    onError={this.onError} />
+                <button style={{display: 'block'}} onClick={this.getToken}>Get CVV Token</button>
             </>
         );
     }
@@ -90,7 +88,8 @@ export default class App extends React.Component {
     }
     onUpdate = (data) => {
         // console.log("Iframe Updated", data);
-        this.setState({ issuer: data.issuer });
+        if (data.issuer)
+            this.setState({ issuer: data.issuer });
     }
     onSubmit = (data) => {
         console.log("IFrame submitted", data);
@@ -100,5 +99,8 @@ export default class App extends React.Component {
     }
     onError = (data) => {
         console.error("IFrame errored", data);
+    }
+    getToken = () => {
+        this.cvvRef.current.getToken();
     }
 }
