@@ -52,6 +52,7 @@ export default class App extends React.Component {
             cvvoptions,
             issuer: ''
         };
+        this.cvvRef = React.createRef();
     }
     render() {
         return (
@@ -61,7 +62,6 @@ export default class App extends React.Component {
                     account={this.state.account}
                     options={this.state.ccoptions}
                     threeDS={this.state.threeds}
-                    issuer={this.state.issuer}
                     onLoad={this.onLoad}
                     onUpdate={this.onUpdate}
                     onSubmit={this.onSubmit}
